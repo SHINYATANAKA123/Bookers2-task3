@@ -1,31 +1,38 @@
-<%=flash[:notice] %>
-  <%= render 'users/profile', user: @user %>
-  <%= render 'books/book', book: @newbook %>
+<div class="container">
+  <div class="row">
+    <div class="col-md-3">
+      <%= render 'users/profile', user: @user %>
 
+      <%= render 'books/book', book: @newbook %>
 
-<div class="col-md-8 offset-md-1">
- <h4>Book detail</h4>
- <% @book %>
-  <table>
-      <thead>
+  <div class="col-md-8 offset-md-1">
+  <h2>Book detail</h2>
+   <table class="table">
+     <tbody>
        <tr>
-        <th><%= attachment_image_tag @user, :profile_image, :fill, 100, 100, format: 'jpeg', fallback: "no_image.jpg", size: '100x100' %><br>
+         <td>
+           <%= attachment_image_tag @user, :profile_image, :fill, 100, 100, format: 'jpeg', fallback: "no_image.jpg", size: '100x100' %><br>
             <%= link_to user_path(@user) do %>
             <%= @user.name %>
             <% end %>
-        </th>
-        <th><%= link_to book_path(@book.id) do %>
+         </td>
+         <td>
+           <%= link_to book_path(@book.id) do %>
             <%= @book.title %>
             <% end %>
-        </th>
-        <th><%= @book.body %></th>
-        <th><% if @book.user == current_user %>
+         </td>
+         <td>
+           <%= @book.body %>
+            <% if @book.user == current_user %>
             <%= link_to "Edit", edit_book_path(@book) %>
             <% end %>
-        </th>
-        <th><% if @book.user == current_user %>
+         </td>
+         <td>
+           <% if @book.user == current_user %>
             <%= link_to "Destroy", book_path(@book), method: :delete, data: {confirm: "are you sure？"} %>
             <% end %>
-        </th>
+         </td>
+       </tr>
+     </tbody>
+   </table>
 
-        <th></th>
